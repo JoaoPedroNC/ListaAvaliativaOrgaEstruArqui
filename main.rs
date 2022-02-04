@@ -83,6 +83,8 @@ fn questao_4(arquivo_original: &mut File, num_registros: u64){
                                                                                                        
                                                                                                        println!("Quantidade de meninas que nasceram em Santos(354850) no ano de 2018:{}", contagem);
                                                                                                        }
+/*6)Quantos bebês nasceram com baixo peso(<2500)em campinas(350950)no ano de 2018?*/
+
                                                                                                        
                                                                                                        
                                                                                                                                                                             
