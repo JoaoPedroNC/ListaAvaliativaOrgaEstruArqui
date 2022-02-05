@@ -167,7 +167,61 @@ fn questao_8(){
           break;
         }//EOF
         let reg_atual:RegNascimento= unsafe{mem::transmute(registro)};
-        let cod_estabelecimento
+        let cod_estabelecimento=u8_to_string(&reg_atual.cod_estabelecimento);
+        
+        if ultimo_estabelecimento != cod_estabelecimento{
+          println!("{} - {}", ultimo_estabelecimento, contador);
+            //Pause
+            std::io::stdin().read_line(&mut String::new()).unwrap();
+            contador = 1;
+            ultimo_estabelecimento= cod_estabelecimento;
+            }else{
+            contador+= 1;
+        }
+      },
+      Err(e) => panic!("Erro ao ler o arquivo:{}",e),
+    }
+  }
+}
+//Exclui os arquivos sinasc-sp_capital_2018.dat, sinasc_sp-2018-ordenado.dat se existirem
+
+
+fn main(){
+  let mut arquivo_original= match File::open(Path::new("sinasc-sp-2018.dat")){
+    Ok(file) => file,
+    Err(e) => panic!("Erro ao abrir o arquivo:{}",e),
+  };
+  
+  //1) Qual é o tamanho do arquivo em bytes?
+  let tam_arquivo = questao_1(&arquivo_original);
+  println!("Tamanho do arquivo:{} bytes", tam_arquivo);
+  
+  //2) Qual é o tamanho de cada registro?
+  let tamanho_registro = mem::size_of::<RegNascimento>();
+  println!("Tamanho do registro:{} bytes", tamanho_registro);
+  
+  //3)Quantos registros tem o arquivo?
+  let num_registros = tam_arquivo / tamanho_registro as u64;
+  println!("Número de registros:{}", num_registros);
+  
+  questao_4(&mut arquivo_original, num_registros);
+  
+  questao_5(&mut arquivo_original);
+  
+  questao_6(&mut arquivo_original);
+  
+  questao_7(&mut arquivo_original);
+  
+  questao8();
+  
+  /* 9) Faça uma estimativa de quantos passos seriam gastos para encontrar um estabelecimento no seu arquivo gerado na questão 7.
+  Justifique sua resposta. Não é necessário implementação nesse item. */
+}
+
+  
+  
+    
+            
 
                                                  
                                                  
